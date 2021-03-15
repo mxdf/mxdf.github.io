@@ -259,208 +259,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mxdf.github.io/blog/webstorage/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/21260521?s=460&u=f67515d2effcd9f872147ac1b72eb3c89d98c48e&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="编号9527">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/webstorage/" itemprop="url">WebStorage ： localStorage 和 sessionStorage</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-25T15:06:08+08:00">
-                2019-12-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/WebStorage/" itemprop="url" rel="index">
-                    <span itemprop="name">WebStorage</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="什么是WebStorage"><a href="#什么是WebStorage" class="headerlink" title="什么是WebStorage"></a>什么是WebStorage</h4><p>WebStorage称为浏览器存储，分为localStorage 和 sessionStorage ，是用来在浏览器中存储 key/value 对的数据</p>
-<p>需要注意的是WebStorage称为浏览器存储的value值总是以字符串的形式存储，非字符串类型的值会默认调用其toString()方法转为字符串类型。</p>
-<p><strong>localStorage和sessionStorage的区别</strong></p>
-<blockquote>
-<p>localStorage 保存的数据没有过期时间，用于长久保存整个网站的数据，直到手动去删除。</p>
-<p>sessionStorage 保存的数据有时效，当页面会话结束，即页面被关闭存储在 sessionStorage 的数据会被清除</p>
-</blockquote>
-<p><strong>WebStorage与cookie的区别</strong></p>
-<ol>
-<li>大小：<blockquote>
-<p>cookie的大小被限制在4KB；<br/><br>localStorage和sessionStorage的存储数据大小一般都是：5MB</p>
-</blockquote>
-</li>
-<li>与服务端交互：<blockquote>
-<p>cookie是随HTTP事务一起被发送的，因此会浪费一部分发送cookie时使用的带宽；<br/><br>localStorage和sessionStorage都保存在客户端，不与服务器进行交互通信</p>
-</blockquote>
-</li>
-<li>易用性：<blockquote>
-<p>cookie需要自己封装setCookie，getCookie方法；<br/><br>localStorage和sessionStorage 提供原生的api操作方便</p>
-</blockquote>
-</li>
-<li>有效期：<blockquote>
-<p>Cookie一般由服务器生成，可设置失效时间，如果在浏览器端生成Cookie，默认是关闭浏览器后失效；<br/><br>localStorage 永久有效，除非被清除；<br> sessionStorage仅在当前会话下有效，关闭页面或浏览器后被清除</p>
-</blockquote>
-</li>
-</ol>
-<h4 id="WebStorage的属性和方法"><a href="#WebStorage的属性和方法" class="headerlink" title="WebStorage的属性和方法"></a>WebStorage的属性和方法</h4><p>localStorage 和 sessionStorage 具有相同的属性和操作方法</p>
-<blockquote>
-<p>属性</p>
-</blockquote>
-<pre><code>length: 返回一个整数，表示存储在Storage对象中的数据项的数量</code></pre>
-<blockquote>
-<p>方法</p>
-</blockquote>
-<pre><code>setItem(key, value)：保存数据，以键值对的方式储存信息
-getItem(key)：获取数据，将键值传入，即可获取到对应的value值
-removeItem(key)：删除单个数据，根据键值移除对应的信息。
-clear()：删除所有的数据
-key(index)：获取某个索引的key</code></pre>
-<h4 id="具体用法"><a href="#具体用法" class="headerlink" title="具体用法"></a>具体用法</h4><p>仅以localStorage为例。</p>
-<ol>
-<li>写入数据</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">localStorage</span>.setItem(<span class="string">&quot;key&quot;</span>, <span class="string">&quot;value&quot;</span>);</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line"><span class="built_in">localStorage</span>.key = <span class="string">&quot;value&quot;</span>;</span><br><span class="line"><span class="built_in">localStorage</span>[<span class="string">&quot;key&quot;</span>] = <span class="string">&quot;value&quot;</span>;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>读取数据</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> value = <span class="built_in">localStorage</span>.getItem(<span class="string">&quot;key&quot;</span>);</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line"><span class="keyword">var</span> value = <span class="built_in">localStorage</span>.key;</span><br><span class="line"><span class="keyword">var</span> value = <span class="built_in">localStorage</span>[<span class="string">&quot;key&quot;</span>];</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>删除指定的数据</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">localStorage</span>.removeItem(<span class="string">&quot;key&quot;</span>);</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>清空数据</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">localStorage</span>.clear();</span><br></pre></td></tr></table></figure>
-<h4 id="对象类型数据的存储"><a href="#对象类型数据的存储" class="headerlink" title="对象类型数据的存储"></a>对象类型数据的存储</h4><p>前面已经提到过，WebStorage存储的数据只能是字符串类型，非字符串类型会默认调用toString()方法，而对象的toString()方法返回的是固定字符串”[object Object]”，所以通常使用JSON.stringify()方法将json对象转换为json字符串，读取之后要再使用JSON.parse()方法将JSON字符串转换成为JSON对象。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 存储</span></span><br><span class="line"><span class="keyword">var</span> data=&#123;</span><br><span class="line">    name:<span class="string">&#x27;zhangsan&#x27;</span>,</span><br><span class="line">    age: <span class="number">18</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">localStorage</span>.setItem(<span class="string">&quot;key&quot;</span>,<span class="built_in">JSON</span>.stringify(data));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取</span></span><br><span class="line"><span class="keyword">var</span> data = <span class="built_in">JSON</span>.parse(<span class="built_in">localStorage</span>.getItem(<span class="string">&quot;key&quot;</span>));</span><br></pre></td></tr></table></figure>
-<h4 id="存储数据设置过期时间"><a href="#存储数据设置过期时间" class="headerlink" title="存储数据设置过期时间"></a>存储数据设置过期时间</h4><p>因为localStorage 保存的数据永久保存没有过期时间，而sessionStorage保存的数据当回话关闭就会被清除，所以如果要设置存储数据的过期时间，通常做法是使用localStorage，存入的数据格式为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; data为要存取的数据，Date是过期时间</span><br><span class="line">&#123;value: data, timeout : Date&#125;</span><br></pre></td></tr></table></figure>
-<p>可以封装成一个公用的模块，setItem的时候设置好过期时间，然后getItem的时候先比对是否过期，若没过期直接返回data值，若数据过期则清除此条数据并返回null。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://mxdf.github.io/blog/webpack/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -492,8 +290,8 @@ key(index)：获取某个索引的key</code></pre>
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-23T11:25:33+08:00">
-                2019-12-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-05T11:25:33+08:00">
+                2020-01-05
               </time>
             
 
@@ -692,6 +490,208 @@ key(index)：获取某个索引的key</code></pre>
 <h4 id="5-X-添加eslint校验"><a href="#5-X-添加eslint校验" class="headerlink" title="5.X 添加eslint校验"></a>5.X 添加eslint校验</h4></blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install eslint</span><br><span class="line">npx eslint --init # 初始化配置文件</span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 配置eslint-loader可以实时校验js文件的正确性,pre表示在所有loader执行前执行</span></span><br><span class="line">&#123;</span><br><span class="line">    test:<span class="regexp">/\.js/</span>,</span><br><span class="line">    enforce:<span class="string">&#x27;pre&#x27;</span>,</span><br><span class="line">    use:<span class="string">&#x27;eslint-loader&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mxdf.github.io/blog/webstorage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/21260521?s=460&u=f67515d2effcd9f872147ac1b72eb3c89d98c48e&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="编号9527">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/webstorage/" itemprop="url">WebStorage ： localStorage 和 sessionStorage</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-25T15:06:08+08:00">
+                2019-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WebStorage/" itemprop="url" rel="index">
+                    <span itemprop="name">WebStorage</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="什么是WebStorage"><a href="#什么是WebStorage" class="headerlink" title="什么是WebStorage"></a>什么是WebStorage</h4><p>WebStorage称为浏览器存储，分为localStorage 和 sessionStorage ，是用来在浏览器中存储 key/value 对的数据</p>
+<p>需要注意的是WebStorage称为浏览器存储的value值总是以字符串的形式存储，非字符串类型的值会默认调用其toString()方法转为字符串类型。</p>
+<p><strong>localStorage和sessionStorage的区别</strong></p>
+<blockquote>
+<p>localStorage 保存的数据没有过期时间，用于长久保存整个网站的数据，直到手动去删除。</p>
+<p>sessionStorage 保存的数据有时效，当页面会话结束，即页面被关闭存储在 sessionStorage 的数据会被清除</p>
+</blockquote>
+<p><strong>WebStorage与cookie的区别</strong></p>
+<ol>
+<li>大小：<blockquote>
+<p>cookie的大小被限制在4KB；<br/><br>localStorage和sessionStorage的存储数据大小一般都是：5MB</p>
+</blockquote>
+</li>
+<li>与服务端交互：<blockquote>
+<p>cookie是随HTTP事务一起被发送的，因此会浪费一部分发送cookie时使用的带宽；<br/><br>localStorage和sessionStorage都保存在客户端，不与服务器进行交互通信</p>
+</blockquote>
+</li>
+<li>易用性：<blockquote>
+<p>cookie需要自己封装setCookie，getCookie方法；<br/><br>localStorage和sessionStorage 提供原生的api操作方便</p>
+</blockquote>
+</li>
+<li>有效期：<blockquote>
+<p>Cookie一般由服务器生成，可设置失效时间，如果在浏览器端生成Cookie，默认是关闭浏览器后失效；<br/><br>localStorage 永久有效，除非被清除；<br> sessionStorage仅在当前会话下有效，关闭页面或浏览器后被清除</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="WebStorage的属性和方法"><a href="#WebStorage的属性和方法" class="headerlink" title="WebStorage的属性和方法"></a>WebStorage的属性和方法</h4><p>localStorage 和 sessionStorage 具有相同的属性和操作方法</p>
+<blockquote>
+<p>属性</p>
+</blockquote>
+<pre><code>length: 返回一个整数，表示存储在Storage对象中的数据项的数量</code></pre>
+<blockquote>
+<p>方法</p>
+</blockquote>
+<pre><code>setItem(key, value)：保存数据，以键值对的方式储存信息
+getItem(key)：获取数据，将键值传入，即可获取到对应的value值
+removeItem(key)：删除单个数据，根据键值移除对应的信息。
+clear()：删除所有的数据
+key(index)：获取某个索引的key</code></pre>
+<h4 id="具体用法"><a href="#具体用法" class="headerlink" title="具体用法"></a>具体用法</h4><p>仅以localStorage为例。</p>
+<ol>
+<li>写入数据</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">localStorage</span>.setItem(<span class="string">&quot;key&quot;</span>, <span class="string">&quot;value&quot;</span>);</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line"><span class="built_in">localStorage</span>.key = <span class="string">&quot;value&quot;</span>;</span><br><span class="line"><span class="built_in">localStorage</span>[<span class="string">&quot;key&quot;</span>] = <span class="string">&quot;value&quot;</span>;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>读取数据</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> value = <span class="built_in">localStorage</span>.getItem(<span class="string">&quot;key&quot;</span>);</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line"><span class="keyword">var</span> value = <span class="built_in">localStorage</span>.key;</span><br><span class="line"><span class="keyword">var</span> value = <span class="built_in">localStorage</span>[<span class="string">&quot;key&quot;</span>];</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>删除指定的数据</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">localStorage</span>.removeItem(<span class="string">&quot;key&quot;</span>);</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>清空数据</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">localStorage</span>.clear();</span><br></pre></td></tr></table></figure>
+<h4 id="对象类型数据的存储"><a href="#对象类型数据的存储" class="headerlink" title="对象类型数据的存储"></a>对象类型数据的存储</h4><p>前面已经提到过，WebStorage存储的数据只能是字符串类型，非字符串类型会默认调用toString()方法，而对象的toString()方法返回的是固定字符串”[object Object]”，所以通常使用JSON.stringify()方法将json对象转换为json字符串，读取之后要再使用JSON.parse()方法将JSON字符串转换成为JSON对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 存储</span></span><br><span class="line"><span class="keyword">var</span> data=&#123;</span><br><span class="line">    name:<span class="string">&#x27;zhangsan&#x27;</span>,</span><br><span class="line">    age: <span class="number">18</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">localStorage</span>.setItem(<span class="string">&quot;key&quot;</span>,<span class="built_in">JSON</span>.stringify(data));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取</span></span><br><span class="line"><span class="keyword">var</span> data = <span class="built_in">JSON</span>.parse(<span class="built_in">localStorage</span>.getItem(<span class="string">&quot;key&quot;</span>));</span><br></pre></td></tr></table></figure>
+<h4 id="存储数据设置过期时间"><a href="#存储数据设置过期时间" class="headerlink" title="存储数据设置过期时间"></a>存储数据设置过期时间</h4><p>因为localStorage 保存的数据永久保存没有过期时间，而sessionStorage保存的数据当回话关闭就会被清除，所以如果要设置存储数据的过期时间，通常做法是使用localStorage，存入的数据格式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; data为要存取的数据，Date是过期时间</span><br><span class="line">&#123;value: data, timeout : Date&#125;</span><br></pre></td></tr></table></figure>
+<p>可以封装成一个公用的模块，setItem的时候设置好过期时间，然后getItem的时候先比对是否过期，若没过期直接返回data值，若数据过期则清除此条数据并返回null。</p>
+
           
         
       
